@@ -31,13 +31,10 @@
         }),
         async mounted() {
             const body = document.querySelector('body');
-            console.log(this.$refs.sample);
-            console.log(this.color)
             this.$refs.sample.style.backgroundColor = this.color;
             this.$emit('background', this.color);
             const server = process.env.NODE_ENV === 'production' ? process.env.VUE_APP_PROD_SERVER : process.env.VUE_APP_LOCAL_SERVER;
             
-            console.log(server)
             const response = await fetch(`${server}/color?name=${this.color}`);
 
             const responseData = await response.json();

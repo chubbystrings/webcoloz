@@ -14,7 +14,7 @@
         <transition name="fade">
           <div class="loader" v-if="loader" ><i class="fas fa-search"></i></div>
         </transition>
-        <input type="text" @input="searchItem" v-model="inputValue" placeholder="Type to search.." ref="input">
+        <input type="text"  v-model="inputValue" placeholder="Type to search.." >
         <transition
         enter-active-class="animated fadeIn"
         leave-active-class="animated fadeOut"
@@ -58,7 +58,6 @@
           
                 const response = await fetch(`${server}/search?value=${this.inputValue}`);
                 if (!response.ok) {
-                  console.log(response)
                   this.searchResults = []
                   this.loader = false
                 } else {
@@ -67,7 +66,6 @@
                     this.searchResults = responseData.data ? responseData.data : [];
                     this.loader = false
                   } catch (error) {
-                    console.log(error);
                     this.loader = false
                   }
                 }
@@ -113,6 +111,11 @@
 
         mounted() {
           this.$refs.wrapper.style.display = 'block'
+        },
+        watch: {
+          inputValue() {
+            this.searchItem();
+          }
         }
     }
 </script>
