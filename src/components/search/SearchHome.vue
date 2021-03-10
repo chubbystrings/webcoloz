@@ -14,7 +14,7 @@
         <transition name="fade">
           <div class="loader" v-if="loader" ><i class="fas fa-search"></i></div>
         </transition>
-        <input type="text"  v-model="inputValue" placeholder="Type to search.." >
+        <input type="text"  ref="input" @input="searchItem" placeholder="Type to search.." >
         <transition
         enter-active-class="animated fadeIn"
         leave-active-class="animated fadeOut"
@@ -74,9 +74,10 @@
             },
 
             searchItem() {
-                if(this.inputValue === '') {
+                if(this.$refs.input.value === '') {
                     this.searchResults = []
                 } else {
+                     this.inputValue = this.$refs.input.value
                      this.fillSerchResults();
                 } 
             },
@@ -112,11 +113,11 @@
         mounted() {
           this.$refs.wrapper.style.display = 'block'
         },
-        watch: {
-          inputValue() {
-            this.searchItem();
-          }
-        }
+        // watch: {
+        //   inputValue() {
+        //     this.searchItem();
+        //   }
+        // }
     }
 </script>
 
